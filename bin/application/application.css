@@ -1,1 +1,11 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.pane{
+	-fx-font-family: "Meiryo";
+}
+.title{
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+}
+.subTitle{
+	-fx-font-size: 18px;
+}
