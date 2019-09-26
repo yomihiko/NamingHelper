@@ -26,7 +26,7 @@
    <children>
       <HBox fx:id="titleBox" alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3">
          <children>
-            <Label fx:id="titleLabel" styleClass="title" text="命名補助ツール" />
+            <Label fx:id="titleLabel" styleClass="title" text="変数命名補助ツール" />
          </children>
       </HBox>
       <Label fx:id="word1Label" styleClass="subTitle" text="単語１" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />

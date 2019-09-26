@@ -1,5 +1,7 @@
 package application;
 
+import static application.Define.*;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,12 +13,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			GridPane root = (GridPane)FXMLLoader.load(getClass().getResource("Top.fxml"));
-			Scene scene = new Scene(root,600,300);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			GridPane root = (GridPane)FXMLLoader.load(getClass().getResource(FILEPATH));
+			Scene scene = new Scene(root,WIDTH,HEIGHT);
+			scene.getStylesheets().add(getClass().getResource(CSS).toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
-			primaryStage.setTitle("命名補助ツール");
+			primaryStage.setTitle(TITLE);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
