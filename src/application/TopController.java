@@ -5,7 +5,7 @@ import static application.Define.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -62,36 +62,44 @@ public class TopController implements Initializable{
     @FXML
     private Button copyBtn;
 
-    private ChoiceBox<?>[] selecters;
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO 自動生成されたメソッド・スタ
-		ArrayList<WordSet> li = new ArrayList<>();
 		//コンボボックスの配列を初期化
-		selecters = List.of(word1Select,word2Select,partsSelect).toArray(ChoiceBox<?>[]::new);
+		ChoiceBox<?>[] selecters = {word1Select,word2Select,partsSelect};
 
-		li.add(new WordSet("emp", "社員"));
-		li.add(new WordSet("gomi","ゴミ"));
-		li.add(new WordSet("", "空白"));
-		word1Select.getItems().addAll(li);
-		word1Select.setValue(li.get(0));
-		word2Select.getItems().addAll(li);
-		word2Select.setValue(li.get(0));
-		partsSelect.getItems().addAll(li);
-		partsSelect.setValue(li.get(0));
+		try(DBConnect db = new DBConnect()){
+			ArrayList<WordSet> words = db.SelectWords();
+			ArrayList<WordSet> parts = db.SelectParts();
+			//データベースからワードセットを取得
+			word1Select.getItems().addAll(words);
+			word2Select.getItems().addAll(words);
+			partsSelect.getItems().addAll(parts);
+			word1Select.setValue(words.get(ZERO));
+			word2Select.setValue(words.get(ZERO));
+			partsSelect.setValue(parts.get(ZERO));
+		}catch (Exception e) {
+			// TODO: handle exception
+			Alert alt = new Alert(AlertType.ERROR,E001,ButtonType.CLOSE);
+			alt.showAndWait();
+		}
 		copyBtn.disableProperty().bind(Bindings.createBooleanBinding(
 				() -> resultForm.getText().isEmpty(),//結果フォームが空白の時はボタンを押せない
 				resultForm.textProperty()));
+		Arrays.stream(selecters).forEach(s -> s.disableProperty()//コンボボックスに値がないときは無効化
+				.set(s.getItems().size() == ZERO));
 		Arrays.stream(selecters).forEach(s -> s.setOnAction(event -> {
 			resultForm.setText(generate());//コンボボックスの値が変更されると結果フォームに反映する
 		}));
 		copyBtn.setOnAction(event -> {//クリップボードにコピーボタンが押された時
 			Clipboard cb = Clipboard.getSystemClipboard();
-			cb.setContent(Map.of(DataFormat.PLAIN_TEXT,resultForm.getText()));
-			Alert alt = new Alert(AlertType.INFORMATION,I001,ButtonType.OK);
+			Map<DataFormat,Object> tmpMap = new HashMap<>();
+			tmpMap.put(DataFormat.PLAIN_TEXT,resultForm.getText());
+			cb.setContent(tmpMap);
+			Alert alt = new Alert(AlertType.INFORMATION,resultForm.getText() + I001,ButtonType.OK);
+			//コピーができたアラートを表示
 			alt.setTitle(I002);
-			alt.setHeaderText(I002);;
+			alt.setHeaderText(I003);;
 			alt.showAndWait();
 		});
 
@@ -105,7 +113,7 @@ public class TopController implements Initializable{
 		if(tmpSts.length > ZERO) {
 			tmpSts[ZERO] = tmpSts[ZERO].substring(ZERO,ONE).toLowerCase() + tmpSts[ZERO].substring(ONE);
 		}
-		return String.join("", tmpSts);
+		return String.join(NOTHING, tmpSts).trim();
 	}
 	/**
 	 * キーの先頭を大文字にする
@@ -113,7 +121,7 @@ public class TopController implements Initializable{
 	 * @return 先頭が大文字になったキーの配列
 	 */
 	private String[] firstUpper(WordSet ...sets) {
-		sets = Arrays.stream(sets).filter(s -> s.getKey().length() > 1).toArray(WordSet[]::new);
+		sets = Arrays.stream(sets).filter(s -> s.getKey().length() > ONE).toArray(WordSet[]::new);
 	    return Arrays.stream(sets)
 	    		.map(s -> s.getKey().substring(ZERO, ONE).toUpperCase() + s.getKey().substring(ONE).toLowerCase())
 	    		.toArray(String[]::new);

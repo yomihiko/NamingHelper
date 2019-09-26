@@ -10,21 +10,28 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
+	public static Stage stg;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			GridPane root = (GridPane)FXMLLoader.load(getClass().getResource(FILEPATH));
 			Scene scene = new Scene(root,WIDTH,HEIGHT);
 			scene.getStylesheets().add(getClass().getResource(CSS).toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.setResizable(false);
-			primaryStage.setTitle(TITLE);
-			primaryStage.show();
+			stg = primaryStage;
+			stg.setScene(scene);
+			stg.setResizable(false);
+			stg.setTitle(TITLE);
+			stg.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 *画面を閉じる
+	 */
+	public static void close() {
+		stg.close();
+	}
 	public static void main(String[] args) {
 		launch(args);
 	}

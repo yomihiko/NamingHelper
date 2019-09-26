@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<GridPane fx:id="mainPane" prefHeight="300.0" prefWidth="600.0" styleClass="pane" stylesheets="@application.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="application.TopController">
+<GridPane fx:id="mainPane" prefHeight="300.0" prefWidth="600.0" styleClass="pane" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TopController">
    <rowConstraints>
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" />
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" />
@@ -37,7 +36,7 @@
       <ChoiceBox fx:id="partsSelect" prefHeight="30.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
       <HBox fx:id="resultBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
          <children>
-            <TextField fx:id="resultForm" prefHeight="30.0" prefWidth="350.0" />
+            <TextField fx:id="resultForm" disable="true" prefHeight="30.0" prefWidth="350.0" />
          </children>
       </HBox>
       <Button fx:id="copyBtn" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="クリップボードにコピー" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
