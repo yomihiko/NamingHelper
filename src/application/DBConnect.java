@@ -22,7 +22,7 @@ public class DBConnect implements AutoCloseable {
 	 * @throws SQLException
 	 */
 	public ArrayList<WordSet> SelectWords() throws SQLException {
-		String SQL = "SELECT * FROM Word order by Key desc";
+		String SQL = "SELECT * FROM Word order by ID asc";
 		ArrayList<WordSet> tmpList = new ArrayList<>();
 		ResultSet rs = con.prepareStatement(SQL).executeQuery();
 		while(rs.next()) {
@@ -36,7 +36,7 @@ public class DBConnect implements AutoCloseable {
 	 * @throws SQLException
 	 */
 	public ArrayList<WordSet> SelectParts() throws SQLException {
-		String SQL = "SELECT * FROM Parts order by Key desc";
+		String SQL = "SELECT * FROM Parts order by ID asc";
 		ArrayList<WordSet> tmpList = new ArrayList<>();
 		ResultSet rs = con.prepareStatement(SQL).executeQuery();
 		while(rs.next()) {
