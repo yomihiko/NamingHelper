@@ -123,7 +123,7 @@ public class TopController implements Initializable{
 	private String[] firstUpper(WordSet ...sets) {
 		sets = Arrays.stream(sets).filter(s -> s.getKey().length() > ONE).toArray(WordSet[]::new);
 	    return Arrays.stream(sets)
-	    		.map(s -> s.getKey().substring(ZERO, ONE).toUpperCase() + s.getKey().substring(ONE).toLowerCase())
+	    		.map(s -> s.getKey().substring(ZERO, ONE).toUpperCase() + s.getKey().substring(ONE))
 	    		.toArray(String[]::new);
 	}
 
