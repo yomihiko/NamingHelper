@@ -83,9 +83,11 @@ public class TopController implements Initializable{
 			Alert alt = new Alert(AlertType.ERROR,E001,ButtonType.CLOSE);
 			alt.showAndWait();
 		}
+
 		copyBtn.disableProperty().bind(Bindings.createBooleanBinding(
 				() -> resultForm.getText().isEmpty(),//結果フォームが空白の時はボタンを押せない
 				resultForm.textProperty()));
+		System.out.println(GridPane.getRowIndex(word1Label));
 		Arrays.stream(selecters).forEach(s -> s.disableProperty()//コンボボックスに値がないときは無効化
 				.set(s.getItems().size() == ZERO));
 		Arrays.stream(selecters).forEach(s -> s.setOnAction(event -> {
